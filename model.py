@@ -176,7 +176,7 @@ class SummarizationModel(object):
       # Add the vocab distributions and the copy distributions together to get the final distributions
       # final_dists is a list length max_dec_steps; each entry is a tensor shape (batch_size, extended_vsize) giving the final distribution for that decoder timestep
       # Note that for decoder timesteps and examples corresponding to a [PAD] token, this is junk - ignore.
-      final_dists = [vocab_dist + copy_dist for (vocab_dist,copy_dist) in zip(vocab_dists_extended, attn_dists_projected)]
+      final_dists = [vocab_dist + copy_dist + 1e-12 for (vocab_dist,copy_dist) in zip(vocab_dists_extended, attn_dists_projected)]
 
       return final_dists
 
